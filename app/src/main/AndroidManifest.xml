@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Hospital_Universitario">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Hospital_Universitario"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".PatientsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".AppointmentsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".TurnsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".AdmissionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".RoomsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".NursingHomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".NursingPatientsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".NursingPreconsultActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".NursingRoomsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".NursingTurnsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".NursingIndicationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorHomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorAppointmentsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorConsultActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorRecordsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorMoreActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorLabActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorPrescriptionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".DoctorScheduleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+    </application>
+
+</manifest>

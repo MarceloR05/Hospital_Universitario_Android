@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main"
+    tools:context=".NursingTurnsActivity">
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp">
+
+            <!-- Top Wine Header -->
+            <View
+                android:id="@+id/viewHeader"
+                android:layout_width="0dp"
+                android:layout_height="202dp"
+                android:background="@color/wine_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Hospital San Gabriel Header info -->
+            <TextView
+                android:id="@+id/tvHeaderHospital"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/hospital_san_gabriel"
+                android:textColor="#F8E1E9"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/tvHeaderIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHeaderIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="♧"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvHeaderHospital"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvHeaderHospital" />
+
+            <!-- Screen Title -->
+            <TextView
+                android:id="@+id/tvScreenTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/nursing_turns_title"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeaderHospital" />
+
+            <!-- Screen Subtitle -->
+            <TextView
+                android:id="@+id/tvScreenSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/nursing_turns_subtitle"
+                android:textColor="#F7D5E1"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvScreenTitle" />
+
+            <!-- Search Card -->
+            <LinearLayout
+                android:id="@+id/cardSearch"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvScreenSubtitle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⌕"
+                    android:textColor="#737B89"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/nursing_search_turns_hint"
+                    android:textColor="#737B89"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Section Title 1: Mi próxima guardia -->
+            <TextView
+                android:id="@+id/tvNextGuardTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="19dp"
+                android:text="@string/nursing_next_guard_title"
+                android:textColor="#222937"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardSearch" />
+
+            <!-- Next Guard Card -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardNextGuard"
+                android:layout_width="0dp"
+                android:layout_height="115dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNextGuardTitle">
+
+                <TextView
+                    android:id="@+id/tvGuardDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/nursing_next_guard_date"
+                    android:textColor="@color/wine_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvGuardTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/nursing_next_guard_time"
+                    android:textColor="#222937"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvGuardDate" />
+
+                <TextView
+                    android:id="@+id/tvGuardStatus"
+                    android:layout_width="122dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_badge_confirmed"
+                    android:gravity="center"
+                    android:text="@string/status_confirmed_shift"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvGuardTime" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Section Title 2: Semana laboral -->
+            <TextView
+                android:id="@+id/tvWeekTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="19dp"
+                android:text="@string/nursing_week_title"
+                android:textColor="#222937"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardNextGuard" />
+
+            <!-- Shift Card 1: Lunes 19 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardShift1"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvWeekTitle">
+
+                <TextView
+                    android:id="@+id/tvDay1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_1_name"
+                    android:textColor="#222937"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTime1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_1_time"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDay1" />
+
+                <TextView
+                    android:id="@+id/tvShift1"
+                    android:layout_width="93dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/bg_badge_inprogress"
+                    android:gravity="center"
+                    android:text="@string/shift_morning"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Shift Card 2: Martes 20 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardShift2"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardShift1">
+
+                <TextView
+                    android:id="@+id/tvDay2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_2_name"
+                    android:textColor="#222937"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTime2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_2_time"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDay2" />
+
+                <TextView
+                    android:id="@+id/tvShift2"
+                    android:layout_width="93dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/bg_badge_inprogress"
+                    android:gravity="center"
+                    android:text="@string/shift_morning"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Shift Card 3: Miércoles 21 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardShift3"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardShift2">
+
+                <TextView
+                    android:id="@+id/tvDay3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_3_name"
+                    android:textColor="#222937"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTime3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_3_time"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDay3" />
+
+                <TextView
+                    android:id="@+id/tvShift3"
+                    android:layout_width="93dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/bg_badge_inprogress"
+                    android:gravity="center"
+                    android:text="@string/shift_morning"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Shift Card 4: Jueves 22 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardShift4"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardShift3">
+
+                <TextView
+                    android:id="@+id/tvDay4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_4_name"
+                    android:textColor="#222937"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTime4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_4_desc"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDay4" />
+
+                <TextView
+                    android:id="@+id/tvShift4"
+                    android:layout_width="93dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/bg_badge_waiting"
+                    android:gravity="center"
+                    android:text="@string/shift_free"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Shift Card 5: Viernes 23 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardShift5"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardShift4">
+
+                <TextView
+                    android:id="@+id/tvDay5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_5_name"
+                    android:textColor="#222937"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTime5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/day_5_time"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvShift5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDay5" />
+
+                <TextView
+                    android:id="@+id/tvShift5"
+                    android:layout_width="93dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/bg_badge_inprogress"
+                    android:gravity="center"
+                    android:text="@string/shift_afternoon"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar Container (Nursing) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavContainer"
+        android:layout_width="0dp"
+        android:layout_height="74dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Tab 1: Inicio -->
+        <LinearLayout
+            android:id="@+id/tabInicio"
+            android:layout_width="67dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="12dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌂"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_inicio"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 2: Pacientes -->
+        <LinearLayout
+            android:id="@+id/tabPacientes"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tabPreconsulta"
+            app:layout_constraintStart_toEndOf="@id/tabInicio"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♙"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_patients"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 3: Preconsulta -->
+        <LinearLayout
+            android:id="@+id/tabPreconsulta"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tabHabitaciones"
+            app:layout_constraintStart_toEndOf="@id/tabPacientes"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♡"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_nursing_preconsult"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 4: Habitaciones -->
+        <LinearLayout
+            android:id="@+id/tabHabitaciones"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tabMas"
+            app:layout_constraintStart_toEndOf="@id/tabPreconsulta"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▣"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_nursing_rooms"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 5: Más (Selected) -->
+        <LinearLayout
+            android:id="@+id/tabMas"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="@drawable/bg_nav_selected"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tabHabitaciones"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="☰"
+                android:textColor="@color/wine_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_more"
+                android:textColor="@color/wine_primary"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Bottom Navigation Indicator bar -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

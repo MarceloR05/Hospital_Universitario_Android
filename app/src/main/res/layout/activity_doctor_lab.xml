@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main"
+    tools:context=".DoctorLabActivity">
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp">
+
+            <!-- Top Wine Header -->
+            <View
+                android:id="@+id/viewHeader"
+                android:layout_width="0dp"
+                android:layout_height="202dp"
+                android:background="@color/wine_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Hospital San Gabriel Header info -->
+            <TextView
+                android:id="@+id/tvHeaderHospital"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/hospital_san_gabriel"
+                android:textColor="#F8E1E9"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/tvHeaderIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHeaderIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="♧"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvHeaderHospital"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvHeaderHospital" />
+
+            <!-- Screen Title -->
+            <TextView
+                android:id="@+id/tvScreenTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/doctor_lab_title"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeaderHospital" />
+
+            <!-- Screen Subtitle -->
+            <TextView
+                android:id="@+id/tvScreenSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/doctor_lab_subtitle"
+                android:textColor="#F7D5E1"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvScreenTitle" />
+
+            <!-- Search Card -->
+            <LinearLayout
+                android:id="@+id/cardSearch"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvScreenSubtitle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⌕"
+                    android:textColor="#737B89"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/doctor_search_lab_hint"
+                    android:textColor="#737B89"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Section Title: Órdenes de mis pacientes -->
+            <TextView
+                android:id="@+id/tvLabListTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="19dp"
+                android:text="@string/doctor_lab_list_title"
+                android:textColor="#222937"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardSearch" />
+
+            <!-- Filters Row -->
+            <TextView
+                android:id="@+id/tvFilters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/doctor_lab_filters"
+                android:textColor="#737B89"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLabListTitle" />
+
+            <!-- Lab Card 1: Carlos Mendoza -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardLab1"
+                android:layout_width="0dp"
+                android:layout_height="83dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvFilters">
+
+                <FrameLayout
+                    android:id="@+id/flIcon1"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="13dp"
+                    android:background="@drawable/bg_nav_selected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="✚"
+                        android:textColor="@color/wine_primary"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvName1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_1_name"
+                    android:textColor="#222937"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMeta1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_1_meta"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon1"
+                    app:layout_constraintTop_toBottomOf="@id/tvName1" />
+
+                <TextView
+                    android:id="@+id/tvStatus1"
+                    android:layout_width="142dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_badge_waiting"
+                    android:gravity="center"
+                    android:text="@string/status_pending"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/flIcon1"
+                    app:layout_constraintTop_toBottomOf="@id/tvMeta1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Lab Card 2: María López -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardLab2"
+                android:layout_width="0dp"
+                android:layout_height="83dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardLab1">
+
+                <FrameLayout
+                    android:id="@+id/flIcon2"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="13dp"
+                    android:background="@drawable/bg_nav_selected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="✚"
+                        android:textColor="@color/wine_primary"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvName2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_2_name"
+                    android:textColor="#222937"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMeta2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_2_meta"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon2"
+                    app:layout_constraintTop_toBottomOf="@id/tvName2" />
+
+                <TextView
+                    android:id="@+id/tvStatus2"
+                    android:layout_width="142dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_badge_inprogress"
+                    android:gravity="center"
+                    android:text="@string/status_in_process"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/flIcon2"
+                    app:layout_constraintTop_toBottomOf="@id/tvMeta2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Lab Card 3: Juan Pérez -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardLab3"
+                android:layout_width="0dp"
+                android:layout_height="83dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardLab2">
+
+                <FrameLayout
+                    android:id="@+id/flIcon3"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="13dp"
+                    android:background="@drawable/bg_nav_selected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="✚"
+                        android:textColor="@color/wine_primary"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvName3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_3_name"
+                    android:textColor="#222937"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMeta3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_3_meta"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon3"
+                    app:layout_constraintTop_toBottomOf="@id/tvName3" />
+
+                <TextView
+                    android:id="@+id/tvStatus3"
+                    android:layout_width="142dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_badge_confirmed"
+                    android:gravity="center"
+                    android:text="@string/status_completed_lab"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/flIcon3"
+                    app:layout_constraintTop_toBottomOf="@id/tvMeta3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Lab Card 4: Lucía García -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardLab4"
+                android:layout_width="0dp"
+                android:layout_height="83dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardLab3">
+
+                <FrameLayout
+                    android:id="@+id/flIcon4"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="13dp"
+                    android:background="@drawable/bg_nav_selected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="✚"
+                        android:textColor="@color/wine_primary"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvName4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_4_name"
+                    android:textColor="#222937"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMeta4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_4_meta"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon4"
+                    app:layout_constraintTop_toBottomOf="@id/tvName4" />
+
+                <TextView
+                    android:id="@+id/tvStatus4"
+                    android:layout_width="142dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_badge_waiting"
+                    android:gravity="center"
+                    android:text="@string/status_pending"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/flIcon4"
+                    app:layout_constraintTop_toBottomOf="@id/tvMeta4" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Lab Card 5: Roberto Díaz -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardLab5"
+                android:layout_width="0dp"
+                android:layout_height="83dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardLab4">
+
+                <FrameLayout
+                    android:id="@+id/flIcon5"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="13dp"
+                    android:background="@drawable/bg_nav_selected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="✚"
+                        android:textColor="@color/wine_primary"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvName5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_5_name"
+                    android:textColor="#222937"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMeta5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/lab_5_meta"
+                    android:textColor="#737B89"
+                    android:textSize="11sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon5"
+                    app:layout_constraintTop_toBottomOf="@id/tvName5" />
+
+                <TextView
+                    android:id="@+id/tvStatus5"
+                    android:layout_width="142dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_badge_confirmed"
+                    android:gravity="center"
+                    android:text="@string/status_completed_lab"
+                    android:textColor="#222937"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/flIcon5"
+                    app:layout_constraintTop_toBottomOf="@id/tvMeta5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar Container (Doctor) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavContainer"
+        android:layout_width="0dp"
+        android:layout_height="74dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Tab 1: Inicio -->
+        <LinearLayout
+            android:id="@+id/tabInicio"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tabCitas"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌂"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_inicio"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 2: Mis citas -->
+        <LinearLayout
+            android:id="@+id/tabCitas"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tabConsulta"
+            app:layout_constraintStart_toEndOf="@id/tabInicio"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▦"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_doctor_appointments"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 3: Consulta -->
+        <LinearLayout
+            android:id="@+id/tabConsulta"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tabExpediente"
+            app:layout_constraintStart_toEndOf="@id/tabCitas"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✚"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_doctor_consult"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 4: Expediente -->
+        <LinearLayout
+            android:id="@+id/tabExpediente"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tabMas"
+            app:layout_constraintStart_toEndOf="@id/tabConsulta"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▤"
+                android:textColor="#737B89"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_doctor_records"
+                android:textColor="#737B89"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!-- Tab 5: Más (Selected) -->
+        <LinearLayout
+            android:id="@+id/tabMas"
+            android:layout_width="70dp"
+            android:layout_height="51dp"
+            android:background="@drawable/bg_nav_selected"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tabExpediente"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="☰"
+                android:textColor="@color/wine_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/nav_more"
+                android:textColor="@color/wine_primary"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Bottom Navigation Indicator bar -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
