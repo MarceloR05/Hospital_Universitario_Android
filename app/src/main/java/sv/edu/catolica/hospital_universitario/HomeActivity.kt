@@ -49,34 +49,15 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            // Already on home
-            Toast.makeText(this, R.string.nav_inicio, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabPacientes.setOnClickListener {
-            val intent = Intent(this, PatientsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabCitas.setOnClickListener {
-            val intent = Intent(this, AppointmentsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabTurnos.setOnClickListener {
-            val intent = Intent(this, TurnsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, AdmissionsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Recepción)
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.ReceptionTab.HOME,
+            tabInicio = binding.tabInicio,
+            tabPacientes = binding.tabPacientes,
+            tabCitas = binding.tabCitas,
+            tabTurnos = binding.tabTurnos,
+            tabMas = binding.tabMas
+        )
     }
 }

@@ -1,6 +1,5 @@
 package sv.edu.catolica.hospital_universitario
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -50,34 +49,15 @@ class PatientsActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.msg_new_patient, Toast.LENGTH_SHORT).show()
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPacientes.setOnClickListener {
-            // Already here
-            Toast.makeText(this, R.string.nav_patients, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabCitas.setOnClickListener {
-            val intent = Intent(this, AppointmentsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabTurnos.setOnClickListener {
-            val intent = Intent(this, TurnsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, AdmissionsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Recepción)
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.ReceptionTab.PATIENTS,
+            tabInicio = binding.tabInicio,
+            tabPacientes = binding.tabPacientes,
+            tabCitas = binding.tabCitas,
+            tabTurnos = binding.tabTurnos,
+            tabMas = binding.tabMas
+        )
     }
 }
