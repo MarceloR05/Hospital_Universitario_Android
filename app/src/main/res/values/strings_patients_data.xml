@@ -16,6 +16,26 @@
     <string name="patients_search_clear">Limpiar</string>
     <string name="patients_search_cancel">Cancelar</string>
     <string name="patients_detail_title">Expediente del paciente</string>
-    <string name="patients_detail_message">Expediente: %1$s\nEstado: %2$s\nEdad: %3$d años\nTeléfono: %4$s</string>
+    <string name="patients_detail_message">Paciente: %1$s\nExpediente: %2$s\nEstado: %3$s\nEdad: %4$d años\nTeléfono: %5$s</string>
     <string name="patients_detail_close">Cerrar</string>
+    <string name="patients_detail_edit">Editar</string>
+    <string name="patients_detail_delete">Eliminar</string>
+
+    <!-- Formulario de paciente -->
+    <string name="patients_form_title_new">Nuevo paciente</string>
+    <string name="patients_form_title_edit">Editar paciente</string>
+    <string name="patients_form_name_hint">Nombre completo</string>
+    <string name="patients_form_age_hint">Edad</string>
+    <string name="patients_form_phone_hint">Teléfono (0000-0000)</string>
+    <string name="patients_form_save">Guardar</string>
+    <string name="patients_error_name">Ingresa el nombre completo (mínimo 3 letras)</string>
+    <string name="patients_error_age">Ingresa una edad válida (0 a 120)</string>
+    <string name="patients_error_phone">Teléfono inválido: deben ser 8 dígitos</string>
+
+    <!-- Eliminar y mensajes -->
+    <string name="patients_delete_title">Eliminar paciente</string>
+    <string name="patients_delete_message">¿Eliminar a %1$s? Esta acción no se puede deshacer.</string>
+    <string name="patients_saved">Paciente registrado</string>
+    <string name="patients_updated">Paciente actualizado</string>
+    <string name="patients_deleted">Paciente eliminado</string>
 </resources>
