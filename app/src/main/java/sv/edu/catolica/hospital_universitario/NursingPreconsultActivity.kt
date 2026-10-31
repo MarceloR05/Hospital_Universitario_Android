@@ -1,6 +1,5 @@
 package sv.edu.catolica.hospital_universitario
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,30 +34,17 @@ class NursingPreconsultActivity : AppCompatActivity() {
             finish()
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            val intent = Intent(this, NursingHomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPacientes.setOnClickListener {
-            val intent = Intent(this, NursingPatientsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPreconsulta.setOnClickListener {
-            // Already here
-            Toast.makeText(this, R.string.nav_nursing_preconsult, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabHabitaciones.setOnClickListener {
-            Toast.makeText(this, R.string.nav_nursing_rooms, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabMas.setOnClickListener {
-            Toast.makeText(this, R.string.msg_feature_in_development, Toast.LENGTH_SHORT).show()
-        }
+        // Bottom Navigation (Enfermería)
+        // "Más" todavía no tiene pantalla: sigue mostrando el aviso.
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.NursingTab.PRECONSULT,
+            tabInicio = binding.tabInicio,
+            tabPacientes = binding.tabPacientes,
+            tabPreconsulta = binding.tabPreconsulta,
+            tabHabitaciones = binding.tabHabitaciones,
+            tabMas = binding.tabMas,
+            placeholderTabs = setOf(Navigator.NursingTab.MORE)
+        )
     }
 }

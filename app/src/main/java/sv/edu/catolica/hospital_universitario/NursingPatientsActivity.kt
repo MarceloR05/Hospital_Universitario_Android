@@ -48,29 +48,17 @@ class NursingPatientsActivity : AppCompatActivity() {
             Toast.makeText(this, "${getString(R.string.msg_nursing_patient_details)} ${getString(R.string.nursing_pat_5_name)}", Toast.LENGTH_SHORT).show()
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            val intent = Intent(this, NursingHomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPacientes.setOnClickListener {
-            Toast.makeText(this, R.string.nav_patients, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabPreconsulta.setOnClickListener {
-            val intent = Intent(this, NursingPreconsultActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabHabitaciones.setOnClickListener {
-            Toast.makeText(this, R.string.nav_nursing_rooms, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabMas.setOnClickListener {
-            Toast.makeText(this, R.string.msg_feature_in_development, Toast.LENGTH_SHORT).show()
-        }
+        // Bottom Navigation (Enfermería)
+        // "Más" todavía no tiene pantalla: sigue mostrando el aviso.
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.NursingTab.PATIENTS,
+            tabInicio = binding.tabInicio,
+            tabPacientes = binding.tabPacientes,
+            tabPreconsulta = binding.tabPreconsulta,
+            tabHabitaciones = binding.tabHabitaciones,
+            tabMas = binding.tabMas,
+            placeholderTabs = setOf(Navigator.NursingTab.MORE)
+        )
     }
 }

@@ -71,33 +71,15 @@ class NursingHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            Toast.makeText(this, R.string.nav_inicio, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabPacientes.setOnClickListener {
-            val intent = Intent(this, NursingPatientsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPreconsulta.setOnClickListener {
-            val intent = Intent(this, NursingPreconsultActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabHabitaciones.setOnClickListener {
-            val intent = Intent(this, NursingRoomsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, NursingTurnsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Enfermería)
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.NursingTab.HOME,
+            tabInicio = binding.tabInicio,
+            tabPacientes = binding.tabPacientes,
+            tabPreconsulta = binding.tabPreconsulta,
+            tabHabitaciones = binding.tabHabitaciones,
+            tabMas = binding.tabMas
+        )
     }
 }

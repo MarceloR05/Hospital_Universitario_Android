@@ -1,6 +1,5 @@
 package sv.edu.catolica.hospital_universitario
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,35 +44,16 @@ class NursingIndicationsActivity : AppCompatActivity() {
             Toast.makeText(this, "${getString(R.string.msg_indication_details)} ${getString(R.string.ind_5_name)} - ${getString(R.string.ind_5_meta)}", Toast.LENGTH_SHORT).show()
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            val intent = Intent(this, NursingHomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPacientes.setOnClickListener {
-            val intent = Intent(this, NursingPatientsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPreconsulta.setOnClickListener {
-            val intent = Intent(this, NursingPreconsultActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabHabitaciones.setOnClickListener {
-            val intent = Intent(this, NursingRoomsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, NursingTurnsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Enfermería)
+        // Indicaciones no es una pestaña de la barra: ninguna queda marcada.
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = null,
+            tabInicio = binding.tabInicio,
+            tabPacientes = binding.tabPacientes,
+            tabPreconsulta = binding.tabPreconsulta,
+            tabHabitaciones = binding.tabHabitaciones,
+            tabMas = binding.tabMas
+        )
     }
 }

@@ -1,6 +1,5 @@
 package sv.edu.catolica.hospital_universitario
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,34 +44,15 @@ class NursingRoomsActivity : AppCompatActivity() {
             Toast.makeText(this, "${getString(R.string.msg_nursing_room_details)} ${getString(R.string.nursing_room_5_name)} (${getString(R.string.nursing_room_5_patient)} - ${getString(R.string.status_available)})", Toast.LENGTH_SHORT).show()
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            val intent = Intent(this, NursingHomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPacientes.setOnClickListener {
-            val intent = Intent(this, NursingPatientsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabPreconsulta.setOnClickListener {
-            val intent = Intent(this, NursingPreconsultActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabHabitaciones.setOnClickListener {
-            // Already here
-            Toast.makeText(this, R.string.nav_nursing_rooms, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, NursingTurnsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Enfermería)
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.NursingTab.ROOMS,
+            tabInicio = binding.tabInicio,
+            tabPacientes = binding.tabPacientes,
+            tabPreconsulta = binding.tabPreconsulta,
+            tabHabitaciones = binding.tabHabitaciones,
+            tabMas = binding.tabMas
+        )
     }
 }

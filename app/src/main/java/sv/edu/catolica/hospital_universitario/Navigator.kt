@@ -23,6 +23,15 @@ object Navigator {
         MORE(R.string.nav_more)
     }
 
+    /** Pestañas de la barra inferior del rol Enfermería. */
+    enum class NursingTab(@param:StringRes val titleRes: Int) {
+        HOME(R.string.nav_inicio),
+        PATIENTS(R.string.nav_patients),
+        PRECONSULT(R.string.nav_nursing_preconsult),
+        ROOMS(R.string.nav_nursing_rooms),
+        MORE(R.string.nav_more)
+    }
+
     // ---------------------------------------------------------------------
     // Recepción
     // ---------------------------------------------------------------------
@@ -118,37 +127,80 @@ object Navigator {
         tabTurnos: View,
         tabMas: View
     ) {
-        bindTab(activity, tabInicio, ReceptionTab.HOME, currentTab) {
+        bindTab(activity, tabInicio, ReceptionTab.HOME.titleRes, currentTab == ReceptionTab.HOME, false) {
             goToReceptionHome(activity, closeCurrent = true)
         }
-        bindTab(activity, tabPacientes, ReceptionTab.PATIENTS, currentTab) {
+        bindTab(activity, tabPacientes, ReceptionTab.PATIENTS.titleRes, currentTab == ReceptionTab.PATIENTS, false) {
             goToPatients(activity, closeCurrent = true)
         }
-        bindTab(activity, tabCitas, ReceptionTab.APPOINTMENTS, currentTab) {
+        bindTab(activity, tabCitas, ReceptionTab.APPOINTMENTS.titleRes, currentTab == ReceptionTab.APPOINTMENTS, false) {
             goToAppointments(activity, closeCurrent = true)
         }
-        bindTab(activity, tabTurnos, ReceptionTab.TURNS, currentTab) {
+        bindTab(activity, tabTurnos, ReceptionTab.TURNS.titleRes, currentTab == ReceptionTab.TURNS, false) {
             goToTurns(activity, closeCurrent = true)
         }
         // TODO: "Más" hoy abre Ingresos (comportamiento actual). Confirmar si debe
         // ser un menú propio cuando exista la pantalla de opciones.
-        bindTab(activity, tabMas, ReceptionTab.MORE, currentTab) {
+        bindTab(activity, tabMas, ReceptionTab.MORE.titleRes, currentTab == ReceptionTab.MORE, false) {
             goToAdmissions(activity, closeCurrent = true)
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // Barra inferior del rol Enfermería
+    // ---------------------------------------------------------------------
+
+    /**
+     * Conecta las cinco pestañas de la barra inferior de Enfermería.
+     *
+     * [currentTab] es la pestaña de la pantalla actual y muestra su Toast al pulsarla;
+     * pasa `null` si la pantalla no está en la barra (indicaciones).
+     *
+     * [placeholderTabs] son pestañas que todavía no tienen pantalla: muestran el aviso
+     * de "función en desarrollo" en lugar de navegar (hoy: "Más").
+     */
+    fun setupBottomNav(
+        activity: Activity,
+        currentTab: NursingTab?,
+        tabInicio: View,
+        tabPacientes: View,
+        tabPreconsulta: View,
+        tabHabitaciones: View,
+        tabMas: View,
+        placeholderTabs: Set<NursingTab> = emptySet()
+    ) {
+        bindTab(activity, tabInicio, NursingTab.HOME.titleRes, currentTab == NursingTab.HOME, NursingTab.HOME in placeholderTabs) {
+            goToNursingHome(activity, closeCurrent = true)
+        }
+        bindTab(activity, tabPacientes, NursingTab.PATIENTS.titleRes, currentTab == NursingTab.PATIENTS, NursingTab.PATIENTS in placeholderTabs) {
+            goToNursingPatients(activity, closeCurrent = true)
+        }
+        bindTab(activity, tabPreconsulta, NursingTab.PRECONSULT.titleRes, currentTab == NursingTab.PRECONSULT, NursingTab.PRECONSULT in placeholderTabs) {
+            goToNursingPreconsult(activity, closeCurrent = true)
+        }
+        bindTab(activity, tabHabitaciones, NursingTab.ROOMS.titleRes, currentTab == NursingTab.ROOMS, NursingTab.ROOMS in placeholderTabs) {
+            goToNursingRooms(activity, closeCurrent = true)
+        }
+        // TODO: "Más" hoy abre Turnos laborales (comportamiento actual). Confirmar si
+        // debe ser un menú propio cuando exista la pantalla de opciones.
+        bindTab(activity, tabMas, NursingTab.MORE.titleRes, currentTab == NursingTab.MORE, NursingTab.MORE in placeholderTabs) {
+            goToNursingTurns(activity, closeCurrent = true)
         }
     }
 
     private fun bindTab(
         activity: Activity,
         view: View,
-        tab: ReceptionTab,
-        currentTab: ReceptionTab?,
+        @StringRes currentTabTitleRes: Int,
+        isCurrentTab: Boolean,
+        isPlaceholder: Boolean,
         action: () -> Unit
     ) {
         view.setOnClickListener {
-            if (tab == currentTab) {
-                Toast.makeText(activity, tab.titleRes, Toast.LENGTH_SHORT).show()
-            } else {
-                action()
+            when {
+                isCurrentTab -> Toast.makeText(activity, currentTabTitleRes, Toast.LENGTH_SHORT).show()
+                isPlaceholder -> Toast.makeText(activity, R.string.msg_feature_in_development, Toast.LENGTH_SHORT).show()
+                else -> action()
             }
         }
     }
