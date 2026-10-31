@@ -2,9 +2,12 @@ package sv.edu.catolica.hospital_universitario
 
 import android.app.Activity
 import android.content.Intent
+import android.view.Menu
 import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Navegación centralizada.
@@ -126,6 +129,9 @@ object Navigator {
      * [currentTab] es la pestaña de la pantalla actual: al pulsarla se muestra el
      * Toast del nombre de la sección, igual que antes. Pasa `null` si la pantalla
      * no está en la barra (habitaciones), para que todas las pestañas naveguen.
+     *
+     * "Más" ya no abre una pantalla: muestra el menú con las pantallas que no
+     * tienen pestaña.
      */
     fun setupBottomNav(
         activity: Activity,
@@ -136,23 +142,21 @@ object Navigator {
         tabTurnos: View,
         tabMas: View
     ) {
-        bindTab(activity, tabInicio, ReceptionTab.HOME.titleRes, currentTab == ReceptionTab.HOME, false) {
+        bindTab(activity, tabInicio, ReceptionTab.HOME.titleRes, currentTab == ReceptionTab.HOME) {
             goToReceptionHome(activity, closeCurrent = true)
         }
-        bindTab(activity, tabPacientes, ReceptionTab.PATIENTS.titleRes, currentTab == ReceptionTab.PATIENTS, false) {
+        bindTab(activity, tabPacientes, ReceptionTab.PATIENTS.titleRes, currentTab == ReceptionTab.PATIENTS) {
             goToPatients(activity, closeCurrent = true)
         }
-        bindTab(activity, tabCitas, ReceptionTab.APPOINTMENTS.titleRes, currentTab == ReceptionTab.APPOINTMENTS, false) {
+        bindTab(activity, tabCitas, ReceptionTab.APPOINTMENTS.titleRes, currentTab == ReceptionTab.APPOINTMENTS) {
             goToAppointments(activity, closeCurrent = true)
         }
-        bindTab(activity, tabTurnos, ReceptionTab.TURNS.titleRes, currentTab == ReceptionTab.TURNS, false) {
+        bindTab(activity, tabTurnos, ReceptionTab.TURNS.titleRes, currentTab == ReceptionTab.TURNS) {
             goToTurns(activity, closeCurrent = true)
         }
-        // TODO: "Más" hoy abre Ingresos (comportamiento actual). Confirmar si debe
-        // ser un menú propio cuando exista la pantalla de opciones.
-        bindTab(activity, tabMas, ReceptionTab.MORE.titleRes, currentTab == ReceptionTab.MORE, false) {
-            goToAdmissions(activity, closeCurrent = true)
-        }
+        // "Más" siempre abre el menú, también en las pantallas que lo marcan como
+        // pestaña actual (hoy: Ingresos).
+        tabMas.setOnClickListener { showReceptionMoreMenu(activity, tabMas) }
     }
 
     // ---------------------------------------------------------------------
@@ -165,8 +169,8 @@ object Navigator {
      * [currentTab] es la pestaña de la pantalla actual y muestra su Toast al pulsarla;
      * pasa `null` si la pantalla no está en la barra (indicaciones).
      *
-     * [placeholderTabs] son pestañas que todavía no tienen pantalla: muestran el aviso
-     * de "función en desarrollo" en lugar de navegar (hoy: "Más").
+     * "Más" ya no abre Turnos laborales: muestra el menú con las pantallas que no
+     * tienen pestaña.
      */
     fun setupBottomNav(
         activity: Activity,
@@ -175,26 +179,23 @@ object Navigator {
         tabPacientes: View,
         tabPreconsulta: View,
         tabHabitaciones: View,
-        tabMas: View,
-        placeholderTabs: Set<NursingTab> = emptySet()
+        tabMas: View
     ) {
-        bindTab(activity, tabInicio, NursingTab.HOME.titleRes, currentTab == NursingTab.HOME, NursingTab.HOME in placeholderTabs) {
+        bindTab(activity, tabInicio, NursingTab.HOME.titleRes, currentTab == NursingTab.HOME) {
             goToNursingHome(activity, closeCurrent = true)
         }
-        bindTab(activity, tabPacientes, NursingTab.PATIENTS.titleRes, currentTab == NursingTab.PATIENTS, NursingTab.PATIENTS in placeholderTabs) {
+        bindTab(activity, tabPacientes, NursingTab.PATIENTS.titleRes, currentTab == NursingTab.PATIENTS) {
             goToNursingPatients(activity, closeCurrent = true)
         }
-        bindTab(activity, tabPreconsulta, NursingTab.PRECONSULT.titleRes, currentTab == NursingTab.PRECONSULT, NursingTab.PRECONSULT in placeholderTabs) {
+        bindTab(activity, tabPreconsulta, NursingTab.PRECONSULT.titleRes, currentTab == NursingTab.PRECONSULT) {
             goToNursingPreconsult(activity, closeCurrent = true)
         }
-        bindTab(activity, tabHabitaciones, NursingTab.ROOMS.titleRes, currentTab == NursingTab.ROOMS, NursingTab.ROOMS in placeholderTabs) {
+        bindTab(activity, tabHabitaciones, NursingTab.ROOMS.titleRes, currentTab == NursingTab.ROOMS) {
             goToNursingRooms(activity, closeCurrent = true)
         }
-        // TODO: "Más" hoy abre Turnos laborales (comportamiento actual). Confirmar si
-        // debe ser un menú propio cuando exista la pantalla de opciones.
-        bindTab(activity, tabMas, NursingTab.MORE.titleRes, currentTab == NursingTab.MORE, NursingTab.MORE in placeholderTabs) {
-            goToNursingTurns(activity, closeCurrent = true)
-        }
+        // "Más" siempre abre el menú, también en las pantallas que lo marcan como
+        // pestaña actual (hoy: Turnos laborales).
+        tabMas.setOnClickListener { showNursingMoreMenu(activity, tabMas) }
     }
 
     // ---------------------------------------------------------------------
@@ -217,36 +218,86 @@ object Navigator {
         tabExpediente: View,
         tabMas: View
     ) {
-        bindTab(activity, tabInicio, DoctorTab.HOME.titleRes, currentTab == DoctorTab.HOME, false) {
+        bindTab(activity, tabInicio, DoctorTab.HOME.titleRes, currentTab == DoctorTab.HOME) {
             goToDoctorHome(activity, closeCurrent = true)
         }
-        bindTab(activity, tabCitas, DoctorTab.APPOINTMENTS.titleRes, currentTab == DoctorTab.APPOINTMENTS, false) {
+        bindTab(activity, tabCitas, DoctorTab.APPOINTMENTS.titleRes, currentTab == DoctorTab.APPOINTMENTS) {
             goToDoctorAppointments(activity, closeCurrent = true)
         }
-        bindTab(activity, tabConsulta, DoctorTab.CONSULT.titleRes, currentTab == DoctorTab.CONSULT, false) {
+        bindTab(activity, tabConsulta, DoctorTab.CONSULT.titleRes, currentTab == DoctorTab.CONSULT) {
             goToDoctorConsult(activity, closeCurrent = true)
         }
-        bindTab(activity, tabExpediente, DoctorTab.RECORDS.titleRes, currentTab == DoctorTab.RECORDS, false) {
+        bindTab(activity, tabExpediente, DoctorTab.RECORDS.titleRes, currentTab == DoctorTab.RECORDS) {
             goToDoctorRecords(activity, closeCurrent = true)
         }
-        bindTab(activity, tabMas, DoctorTab.MORE.titleRes, currentTab == DoctorTab.MORE, false) {
+        bindTab(activity, tabMas, DoctorTab.MORE.titleRes, currentTab == DoctorTab.MORE) {
             goToDoctorMore(activity, closeCurrent = true)
         }
     }
+
+    // ---------------------------------------------------------------------
+    // Menú "Más" (Recepción y Enfermería)
+    // ---------------------------------------------------------------------
+
+    /** Menú de Recepción: pantallas sin pestaña y cierre de sesión. */
+    private fun showReceptionMoreMenu(activity: Activity, anchor: View) =
+        showMoreMenu(
+            activity,
+            anchor,
+            MoreMenuEntry(R.string.admissions_title) { goToAdmissions(activity) },
+            MoreMenuEntry(R.string.rooms_title) { goToRooms(activity) },
+            MoreMenuEntry(R.string.menu_logout) { showLogoutSnackbar(activity) }
+        )
+
+    /** Menú de Enfermería: pantallas sin pestaña y cierre de sesión. */
+    private fun showNursingMoreMenu(activity: Activity, anchor: View) =
+        showMoreMenu(
+            activity,
+            anchor,
+            MoreMenuEntry(R.string.nursing_turns_title) { goToNursingTurns(activity) },
+            MoreMenuEntry(R.string.nursing_indications_title) { goToNursingIndications(activity) },
+            MoreMenuEntry(R.string.menu_logout) { showLogoutSnackbar(activity) }
+        )
+
+    private fun showMoreMenu(
+        activity: Activity,
+        anchor: View,
+        vararg entries: MoreMenuEntry
+    ) {
+        PopupMenu(activity, anchor).apply {
+            entries.forEachIndexed { index, entry ->
+                menu.add(Menu.NONE, index, index, entry.titleRes)
+            }
+            setOnMenuItemClickListener { item ->
+                entries.getOrNull(item.itemId)?.action?.invoke()
+                true
+            }
+            show()
+        }
+    }
+
+    private fun showLogoutSnackbar(activity: Activity) {
+        Snackbar.make(
+            activity.findViewById(android.R.id.content),
+            R.string.msg_logout_simulated,
+            Snackbar.LENGTH_SHORT
+        ).show()
+    }
+
+    private class MoreMenuEntry(@param:StringRes val titleRes: Int, val action: () -> Unit)
 
     private fun bindTab(
         activity: Activity,
         view: View,
         @StringRes currentTabTitleRes: Int,
         isCurrentTab: Boolean,
-        isPlaceholder: Boolean,
         action: () -> Unit
     ) {
         view.setOnClickListener {
-            when {
-                isCurrentTab -> Toast.makeText(activity, currentTabTitleRes, Toast.LENGTH_SHORT).show()
-                isPlaceholder -> Toast.makeText(activity, R.string.msg_feature_in_development, Toast.LENGTH_SHORT).show()
-                else -> action()
+            if (isCurrentTab) {
+                Toast.makeText(activity, currentTabTitleRes, Toast.LENGTH_SHORT).show()
+            } else {
+                action()
             }
         }
     }

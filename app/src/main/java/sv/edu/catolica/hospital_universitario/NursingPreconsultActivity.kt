@@ -35,7 +35,6 @@ class NursingPreconsultActivity : AppCompatActivity() {
         }
 
         // Bottom Navigation (Enfermería)
-        // "Más" todavía no tiene pantalla: sigue mostrando el aviso.
         Navigator.setupBottomNav(
             activity = this,
             currentTab = Navigator.NursingTab.PRECONSULT,
@@ -43,8 +42,7 @@ class NursingPreconsultActivity : AppCompatActivity() {
             tabPacientes = binding.tabPacientes,
             tabPreconsulta = binding.tabPreconsulta,
             tabHabitaciones = binding.tabHabitaciones,
-            tabMas = binding.tabMas,
-            placeholderTabs = setOf(Navigator.NursingTab.MORE)
+            tabMas = binding.tabMas
         )
     }
 }

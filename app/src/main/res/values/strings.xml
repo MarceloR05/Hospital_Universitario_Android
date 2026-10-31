@@ -40,6 +40,8 @@
     <string name="nav_turns">Turnos</string>
     <string name="nav_more">Más</string>
     <string name="msg_feature_in_development">Módulo en desarrollo</string>
+    <string name="menu_logout">Cerrar sesión</string>
+    <string name="msg_logout_simulated">Cierre de sesión simulado. Sesión no configurada.</string>
 
     <!-- Patients Screen Strings -->
     <string name="patients_title">Pacientes</string>
