@@ -2,9 +2,7 @@ package sv.edu.catolica.hospital_universitario
 
 import android.app.Activity
 import android.content.Intent
-import android.view.Menu
 import android.view.View
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
@@ -69,6 +67,9 @@ object Navigator {
     fun goToRooms(activity: Activity, closeCurrent: Boolean = false) =
         navigate(activity, RoomsActivity::class.java, closeCurrent)
 
+    fun goToReceptionMore(activity: Activity, closeCurrent: Boolean = false) =
+        navigate(activity, ReceptionMoreActivity::class.java, closeCurrent)
+
     // ---------------------------------------------------------------------
     // Enfermería
     // ---------------------------------------------------------------------
@@ -90,6 +91,9 @@ object Navigator {
 
     fun goToNursingIndications(activity: Activity, closeCurrent: Boolean = false) =
         navigate(activity, NursingIndicationsActivity::class.java, closeCurrent)
+
+    fun goToNursingMore(activity: Activity, closeCurrent: Boolean = false) =
+        navigate(activity, NursingMoreActivity::class.java, closeCurrent)
 
     // ---------------------------------------------------------------------
     // Médico
@@ -128,10 +132,7 @@ object Navigator {
      *
      * [currentTab] es la pestaña de la pantalla actual: al pulsarla se muestra el
      * Toast del nombre de la sección, igual que antes. Pasa `null` si la pantalla
-     * no está en la barra (habitaciones), para que todas las pestañas naveguen.
-     *
-     * "Más" ya no abre una pantalla: muestra el menú con las pantallas que no
-     * tienen pestaña.
+     * no está en la barra (ingresos, habitaciones), para que todas las pestañas naveguen.
      */
     fun setupBottomNav(
         activity: Activity,
@@ -154,9 +155,9 @@ object Navigator {
         bindTab(activity, tabTurnos, ReceptionTab.TURNS.titleRes, currentTab == ReceptionTab.TURNS) {
             goToTurns(activity, closeCurrent = true)
         }
-        // "Más" siempre abre el menú, también en las pantallas que lo marcan como
-        // pestaña actual (hoy: Ingresos).
-        tabMas.setOnClickListener { showReceptionMoreMenu(activity, tabMas) }
+        bindTab(activity, tabMas, ReceptionTab.MORE.titleRes, currentTab == ReceptionTab.MORE) {
+            goToReceptionMore(activity, closeCurrent = true)
+        }
     }
 
     // ---------------------------------------------------------------------
@@ -167,10 +168,7 @@ object Navigator {
      * Conecta las cinco pestañas de la barra inferior de Enfermería.
      *
      * [currentTab] es la pestaña de la pantalla actual y muestra su Toast al pulsarla;
-     * pasa `null` si la pantalla no está en la barra (indicaciones).
-     *
-     * "Más" ya no abre Turnos laborales: muestra el menú con las pantallas que no
-     * tienen pestaña.
+     * pasa `null` si la pantalla no está en la barra (turnos laborales, indicaciones).
      */
     fun setupBottomNav(
         activity: Activity,
@@ -193,9 +191,9 @@ object Navigator {
         bindTab(activity, tabHabitaciones, NursingTab.ROOMS.titleRes, currentTab == NursingTab.ROOMS) {
             goToNursingRooms(activity, closeCurrent = true)
         }
-        // "Más" siempre abre el menú, también en las pantallas que lo marcan como
-        // pestaña actual (hoy: Turnos laborales).
-        tabMas.setOnClickListener { showNursingMoreMenu(activity, tabMas) }
+        bindTab(activity, tabMas, NursingTab.MORE.titleRes, currentTab == NursingTab.MORE) {
+            goToNursingMore(activity, closeCurrent = true)
+        }
     }
 
     // ---------------------------------------------------------------------
@@ -236,55 +234,21 @@ object Navigator {
     }
 
     // ---------------------------------------------------------------------
-    // Menú "Más" (Recepción y Enfermería)
+    // Cierre de sesión simulado
     // ---------------------------------------------------------------------
 
-    /** Menú de Recepción: pantallas sin pestaña y cierre de sesión. */
-    private fun showReceptionMoreMenu(activity: Activity, anchor: View) =
-        showMoreMenu(
-            activity,
-            anchor,
-            MoreMenuEntry(R.string.admissions_title) { goToAdmissions(activity) },
-            MoreMenuEntry(R.string.rooms_title) { goToRooms(activity) },
-            MoreMenuEntry(R.string.menu_logout) { showLogoutSnackbar(activity) }
-        )
-
-    /** Menú de Enfermería: pantallas sin pestaña y cierre de sesión. */
-    private fun showNursingMoreMenu(activity: Activity, anchor: View) =
-        showMoreMenu(
-            activity,
-            anchor,
-            MoreMenuEntry(R.string.nursing_turns_title) { goToNursingTurns(activity) },
-            MoreMenuEntry(R.string.nursing_indications_title) { goToNursingIndications(activity) },
-            MoreMenuEntry(R.string.menu_logout) { showLogoutSnackbar(activity) }
-        )
-
-    private fun showMoreMenu(
-        activity: Activity,
-        anchor: View,
-        vararg entries: MoreMenuEntry
-    ) {
-        PopupMenu(activity, anchor).apply {
-            entries.forEachIndexed { index, entry ->
-                menu.add(Menu.NONE, index, index, entry.titleRes)
-            }
-            setOnMenuItemClickListener { item ->
-                entries.getOrNull(item.itemId)?.action?.invoke()
-                true
-            }
-            show()
-        }
-    }
-
-    private fun showLogoutSnackbar(activity: Activity) {
+    /**
+     * Aviso provisional de "Cerrar sesión" (pantallas "Más" de Recepción y
+     * Enfermería). Todavía no cierra ninguna sesión: se reemplazará en un paso
+     * posterior cuando exista SessionManager.
+     */
+    fun showLogoutSnackbar(activity: Activity) {
         Snackbar.make(
             activity.findViewById(android.R.id.content),
             R.string.msg_logout_simulated,
             Snackbar.LENGTH_SHORT
         ).show()
     }
-
-    private class MoreMenuEntry(@param:StringRes val titleRes: Int, val action: () -> Unit)
 
     private fun bindTab(
         activity: Activity,

@@ -52,7 +52,7 @@ class AdmissionsActivity : AppCompatActivity() {
         // Bottom Navigation (Recepción)
         Navigator.setupBottomNav(
             activity = this,
-            currentTab = Navigator.ReceptionTab.MORE,
+            currentTab = null,
             tabInicio = binding.tabInicio,
             tabPacientes = binding.tabPacientes,
             tabCitas = binding.tabCitas,

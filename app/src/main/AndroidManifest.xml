@@ -48,6 +48,10 @@
             android:exported="false"
             android:theme="@style/Theme.Hospital_Universitario" />
         <activity
+            android:name=".ReceptionMoreActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
             android:name=".NursingHomeActivity"
             android:exported="false"
             android:theme="@style/Theme.Hospital_Universitario" />
@@ -69,6 +73,10 @@
             android:theme="@style/Theme.Hospital_Universitario" />
         <activity
             android:name=".NursingIndicationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hospital_Universitario" />
+        <activity
+            android:name=".NursingMoreActivity"
             android:exported="false"
             android:theme="@style/Theme.Hospital_Universitario" />
         <activity

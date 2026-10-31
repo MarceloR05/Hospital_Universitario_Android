@@ -40,7 +40,6 @@
     <string name="nav_turns">Turnos</string>
     <string name="nav_more">Más</string>
     <string name="msg_feature_in_development">Módulo en desarrollo</string>
-    <string name="menu_logout">Cerrar sesión</string>
     <string name="msg_logout_simulated">Cierre de sesión simulado. Sesión no configurada.</string>
 
     <!-- Patients Screen Strings -->
@@ -489,4 +488,23 @@
 
     <string name="status_in_process">En proceso</string>
     <string name="status_completed_lab">Completado</string>
+
+    <!-- Más Screen Strings (Recepción) -->
+    <string name="reception_more_title">Más opciones</string>
+    <string name="reception_more_subtitle">Configuración y herramientas de recepción</string>
+    <string name="reception_search_more_hint">Buscar opciones...</string>
+    <string name="reception_more_section_title">Opciones del sistema</string>
+    <string name="reception_more_opt_admissions">Ingresos</string>
+    <string name="reception_more_opt_rooms">Habitaciones</string>
+    <string name="reception_more_opt_logout">Cerrar sesión</string>
+    <string name="msg_search_more_options">Búsqueda en opciones del sistema</string>
+
+    <!-- Más Screen Strings (Enfermería) -->
+    <string name="nursing_more_title">Más opciones</string>
+    <string name="nursing_more_subtitle">Configuración y herramientas de enfermería</string>
+    <string name="nursing_search_more_hint">Buscar opciones...</string>
+    <string name="nursing_more_section_title">Opciones del sistema</string>
+    <string name="nursing_more_opt_turns">Turnos laborales</string>
+    <string name="nursing_more_opt_indications">Indicaciones autorizadas</string>
+    <string name="nursing_more_opt_logout">Cerrar sesión</string>
 </resources>

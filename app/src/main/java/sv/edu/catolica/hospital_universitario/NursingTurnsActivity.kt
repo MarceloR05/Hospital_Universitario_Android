@@ -52,7 +52,7 @@ class NursingTurnsActivity : AppCompatActivity() {
         // Bottom Navigation (Enfermería)
         Navigator.setupBottomNav(
             activity = this,
-            currentTab = Navigator.NursingTab.MORE,
+            currentTab = null,
             tabInicio = binding.tabInicio,
             tabPacientes = binding.tabPacientes,
             tabPreconsulta = binding.tabPreconsulta,
