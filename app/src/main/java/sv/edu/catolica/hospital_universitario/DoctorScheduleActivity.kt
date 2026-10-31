@@ -1,6 +1,5 @@
 package sv.edu.catolica.hospital_universitario
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -50,35 +49,16 @@ class DoctorScheduleActivity : AppCompatActivity() {
             Toast.makeText(this, "${getString(R.string.msg_schedule_details)} ${getString(R.string.doc_sch_5_day)} (${getString(R.string.doc_sch_5_desc)})", Toast.LENGTH_SHORT).show()
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            val intent = Intent(this, DoctorHomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabCitas.setOnClickListener {
-            val intent = Intent(this, DoctorAppointmentsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabConsulta.setOnClickListener {
-            val intent = Intent(this, DoctorConsultActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabExpediente.setOnClickListener {
-            val intent = Intent(this, DoctorRecordsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, DoctorMoreActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Médico)
+        // Horario no es una pestaña de la barra: ninguna queda marcada.
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = null,
+            tabInicio = binding.tabInicio,
+            tabCitas = binding.tabCitas,
+            tabConsulta = binding.tabConsulta,
+            tabExpediente = binding.tabExpediente,
+            tabMas = binding.tabMas
+        )
     }
 }

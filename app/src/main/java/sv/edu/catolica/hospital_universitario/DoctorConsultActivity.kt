@@ -1,6 +1,5 @@
 package sv.edu.catolica.hospital_universitario
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,33 +40,15 @@ class DoctorConsultActivity : AppCompatActivity() {
             finish()
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            val intent = Intent(this, DoctorHomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabCitas.setOnClickListener {
-            val intent = Intent(this, DoctorAppointmentsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabConsulta.setOnClickListener {
-            Toast.makeText(this, R.string.nav_doctor_consult, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabExpediente.setOnClickListener {
-            val intent = Intent(this, DoctorRecordsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, DoctorMoreActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Médico)
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.DoctorTab.CONSULT,
+            tabInicio = binding.tabInicio,
+            tabCitas = binding.tabCitas,
+            tabConsulta = binding.tabConsulta,
+            tabExpediente = binding.tabExpediente,
+            tabMas = binding.tabMas
+        )
     }
 }

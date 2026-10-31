@@ -32,6 +32,15 @@ object Navigator {
         MORE(R.string.nav_more)
     }
 
+    /** Pestañas de la barra inferior del rol Médico. */
+    enum class DoctorTab(@param:StringRes val titleRes: Int) {
+        HOME(R.string.nav_inicio),
+        APPOINTMENTS(R.string.nav_doctor_appointments),
+        CONSULT(R.string.nav_doctor_consult),
+        RECORDS(R.string.nav_doctor_records),
+        MORE(R.string.nav_more)
+    }
+
     // ---------------------------------------------------------------------
     // Recepción
     // ---------------------------------------------------------------------
@@ -185,6 +194,43 @@ object Navigator {
         // debe ser un menú propio cuando exista la pantalla de opciones.
         bindTab(activity, tabMas, NursingTab.MORE.titleRes, currentTab == NursingTab.MORE, NursingTab.MORE in placeholderTabs) {
             goToNursingTurns(activity, closeCurrent = true)
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // Barra inferior del rol Médico
+    // ---------------------------------------------------------------------
+
+    /**
+     * Conecta las cinco pestañas de la barra inferior del rol Médico.
+     *
+     * [currentTab] es la pestaña de la pantalla actual y muestra su Toast al pulsarla.
+     * Pasa `null` en las pantallas que se abren desde "Más" y no tienen pestaña propia
+     * (Laboratorio, Recetas, Horario): así las cinco pestañas navegan.
+     */
+    fun setupBottomNav(
+        activity: Activity,
+        currentTab: DoctorTab?,
+        tabInicio: View,
+        tabCitas: View,
+        tabConsulta: View,
+        tabExpediente: View,
+        tabMas: View
+    ) {
+        bindTab(activity, tabInicio, DoctorTab.HOME.titleRes, currentTab == DoctorTab.HOME, false) {
+            goToDoctorHome(activity, closeCurrent = true)
+        }
+        bindTab(activity, tabCitas, DoctorTab.APPOINTMENTS.titleRes, currentTab == DoctorTab.APPOINTMENTS, false) {
+            goToDoctorAppointments(activity, closeCurrent = true)
+        }
+        bindTab(activity, tabConsulta, DoctorTab.CONSULT.titleRes, currentTab == DoctorTab.CONSULT, false) {
+            goToDoctorConsult(activity, closeCurrent = true)
+        }
+        bindTab(activity, tabExpediente, DoctorTab.RECORDS.titleRes, currentTab == DoctorTab.RECORDS, false) {
+            goToDoctorRecords(activity, closeCurrent = true)
+        }
+        bindTab(activity, tabMas, DoctorTab.MORE.titleRes, currentTab == DoctorTab.MORE, false) {
+            goToDoctorMore(activity, closeCurrent = true)
         }
     }
 

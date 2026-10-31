@@ -58,33 +58,15 @@ class DoctorHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Bottom Navigation Tabs clicks
-        binding.tabInicio.setOnClickListener {
-            Toast.makeText(this, R.string.nav_inicio, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tabCitas.setOnClickListener {
-            val intent = Intent(this, DoctorAppointmentsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabConsulta.setOnClickListener {
-            val intent = Intent(this, DoctorConsultActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabExpediente.setOnClickListener {
-            val intent = Intent(this, DoctorRecordsActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.tabMas.setOnClickListener {
-            val intent = Intent(this, DoctorMoreActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        // Bottom Navigation (Médico)
+        Navigator.setupBottomNav(
+            activity = this,
+            currentTab = Navigator.DoctorTab.HOME,
+            tabInicio = binding.tabInicio,
+            tabCitas = binding.tabCitas,
+            tabConsulta = binding.tabConsulta,
+            tabExpediente = binding.tabExpediente,
+            tabMas = binding.tabMas
+        )
     }
 }
