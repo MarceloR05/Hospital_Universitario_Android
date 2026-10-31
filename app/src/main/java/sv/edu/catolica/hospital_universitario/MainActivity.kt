@@ -1,6 +1,5 @@
 package sv.edu.catolica.hospital_universitario
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -60,23 +59,29 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Show success message and navigate to HomeActivity (Receptionist Dashboard)
-            Toast.makeText(this, R.string.msg_login_simulated, Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+            val user = SessionManager.login(email, password)
+            if (user == null) {
+                binding.etPassword.error = getString(R.string.error_invalid_credentials)
+                binding.etPassword.requestFocus()
+                return@setOnClickListener
+            }
+
+            // El login se cierra para que Atrás no vuelva a esta pantalla.
+            Navigator.goToHomeForRole(this, user.role, closeCurrent = true)
         }
 
-        // Nursing Role button click
+        // Nursing Role button click (atajo de demo)
         binding.btnNursingRole.setOnClickListener {
-            val intent = Intent(this, NursingHomeActivity::class.java)
-            startActivity(intent)
+            val user = SessionManager.loginAsDemo(SessionManager.Role.NURSING)
+                ?: return@setOnClickListener
+            Navigator.goToHomeForRole(this, user.role, closeCurrent = true)
         }
 
-        // Doctor Role button click
+        // Doctor Role button click (atajo de demo)
         binding.btnDoctorRole.setOnClickListener {
-            val intent = Intent(this, DoctorHomeActivity::class.java)
-            startActivity(intent)
+            val user = SessionManager.loginAsDemo(SessionManager.Role.DOCTOR)
+                ?: return@setOnClickListener
+            Navigator.goToHomeForRole(this, user.role, closeCurrent = true)
         }
 
         // Forgot password click

@@ -289,6 +289,55 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- Option Card 4: Cerrar sesión -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardOpt4"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/bg_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardOpt3">
+
+                <FrameLayout
+                    android:id="@+id/flIcon4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/bg_nav_selected"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="🚪"
+                        android:textSize="18sp" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/doctor_more_opt_logout"
+                    android:textColor="#222937"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/flIcon4"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * Navegación centralizada.
@@ -48,6 +48,19 @@ object Navigator {
 
     fun goToLogin(activity: Activity, closeCurrent: Boolean = false) =
         navigate(activity, MainActivity::class.java, closeCurrent)
+
+    /** Abre el Home que corresponde al [role] de la sesión. */
+    fun goToHomeForRole(
+        activity: Activity,
+        role: SessionManager.Role,
+        closeCurrent: Boolean = false
+    ) {
+        when (role) {
+            SessionManager.Role.RECEPTION -> goToReceptionHome(activity, closeCurrent)
+            SessionManager.Role.NURSING -> goToNursingHome(activity, closeCurrent)
+            SessionManager.Role.DOCTOR -> goToDoctorHome(activity, closeCurrent)
+        }
+    }
 
     fun goToReceptionHome(activity: Activity, closeCurrent: Boolean = false) =
         navigate(activity, HomeActivity::class.java, closeCurrent)
@@ -234,20 +247,26 @@ object Navigator {
     }
 
     // ---------------------------------------------------------------------
-    // Cierre de sesión simulado
+    // Cierre de sesión
     // ---------------------------------------------------------------------
 
     /**
-     * Aviso provisional de "Cerrar sesión" (pantallas "Más" de Recepción y
-     * Enfermería). Todavía no cierra ninguna sesión: se reemplazará en un paso
-     * posterior cuando exista SessionManager.
+     * Pide confirmación, limpia [SessionManager] y vuelve al login borrando toda
+     * la pila de pantallas.
      */
-    fun showLogoutSnackbar(activity: Activity) {
-        Snackbar.make(
-            activity.findViewById(android.R.id.content),
-            R.string.msg_logout_simulated,
-            Snackbar.LENGTH_SHORT
-        ).show()
+    fun logout(activity: Activity) {
+        MaterialAlertDialogBuilder(activity)
+            .setTitle(R.string.dialog_logout_title)
+            .setMessage(R.string.dialog_logout_message)
+            .setNegativeButton(R.string.dialog_logout_cancel, null)
+            .setPositiveButton(R.string.dialog_logout_confirm) { _, _ ->
+                SessionManager.logout()
+                val intent = Intent(activity, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                activity.startActivity(intent)
+            }
+            .show()
     }
 
     private fun bindTab(

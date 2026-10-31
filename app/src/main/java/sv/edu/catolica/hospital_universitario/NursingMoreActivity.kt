@@ -33,7 +33,7 @@ class NursingMoreActivity : AppCompatActivity() {
         }
 
         binding.cardOpt3.setOnClickListener {
-            Navigator.showLogoutSnackbar(this)
+            Navigator.logout(this)
         }
 
         // Bottom Navigation (Enfermería)

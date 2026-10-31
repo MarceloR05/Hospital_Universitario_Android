@@ -40,6 +40,10 @@ class DoctorMoreActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.cardOpt4.setOnClickListener {
+            Navigator.logout(this)
+        }
+
         // Bottom Navigation (Médico)
         Navigator.setupBottomNav(
             activity = this,
