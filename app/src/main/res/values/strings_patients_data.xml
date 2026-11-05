@@ -10,10 +10,7 @@
     <!-- Lista, búsqueda y detalle de pacientes -->
     <string name="patients_empty">No hay pacientes registrados</string>
     <string name="patients_no_results">Sin resultados para «%1$s»</string>
-    <string name="patients_search_title">Buscar pacientes</string>
-    <string name="patients_search_hint">Nombre o expediente</string>
-    <string name="patients_search_apply">Buscar</string>
-    <string name="patients_search_clear">Limpiar</string>
+    <string name="patients_search_clear_desc">Limpiar búsqueda</string>
     <string name="patients_search_cancel">Cancelar</string>
     <string name="patients_detail_title">Expediente del paciente</string>
     <string name="patients_detail_message">Paciente: %1$s\nExpediente: %2$s\nEstado: %3$s\nEdad: %4$d años\nTeléfono: %5$s</string>

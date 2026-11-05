@@ -117,13 +117,33 @@
                     android:textColor="#737B89"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:text="@string/search_patients_hint"
-                    android:textColor="#737B89"
+                    android:background="@null"
+                    android:hint="@string/search_patients_hint"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="0dp"
+                    android:textColor="#202734"
+                    android:textColorHint="#737B89"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnClearSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/patients_search_clear_desc"
+                    android:padding="8dp"
+                    android:text="✕"
+                    android:textColor="#737B89"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Section Title: Pacientes registrados -->
@@ -184,33 +204,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvFilters" />
-
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/listBarrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="rvPatients,tvEmpty" />
-
-            <!-- + Nuevo paciente Button -->
-            <Button
-                android:id="@+id/btnNewPatient"
-                android:layout_width="162dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_button_wine"
-                android:text="@string/btn_new_patient"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/listBarrier" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <!-- + Nuevo paciente: botón FIJO (no se mueve con el scroll) -->
+    <Button
+        android:id="@+id/btnNewPatient"
+        android:layout_width="162dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_button_wine"
+        android:elevation="8dp"
+        android:text="@string/btn_new_patient"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Bottom Navigation Bar Container -->
     <androidx.constraintlayout.widget.ConstraintLayout

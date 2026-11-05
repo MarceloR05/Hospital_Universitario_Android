@@ -1,7 +1,6 @@
 package sv.edu.catolica.hospital_universitario
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import sv.edu.catolica.hospital_universitario.databinding.ActivityAdmissionsBinding
 
@@ -14,42 +13,24 @@ class AdmissionsActivity : AppCompatActivity() {
         binding = ActivityAdmissionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupListeners()
-    }
+        // Lista, búsqueda, detalle y formularios (ver ListScreen / ListConfigs)
+        ListScreen(
+            activity = this,
+            repository = AppContainer.admissionRepository,
+            config = ListConfigs.admissions(),
+            views = ListScreen.Views(
+                recycler = binding.rvList,
+                empty = binding.tvEmpty,
+                search = binding.etSearch,
+                clearSearch = binding.btnClearSearch,
+                searchCard = binding.cardSearch,
+                newButton = binding.btnNewAdmission,
+                root = binding.root,
+                snackbarAnchor = binding.bottomNavContainer
+            )
+        ).attach()
 
-    private fun setupListeners() {
-        // Search bar click
-        binding.cardSearch.setOnClickListener {
-            Toast.makeText(this, "Búsqueda de ingresos", Toast.LENGTH_SHORT).show()
-        }
-
-        // Admission cards clicks
-        binding.cardAdm1.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_admission_details)} ${getString(R.string.adm_1_name)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardAdm2.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_admission_details)} ${getString(R.string.adm_2_name)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardAdm3.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_admission_details)} ${getString(R.string.adm_3_name)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardAdm4.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_admission_details)} ${getString(R.string.adm_4_name)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardAdm5.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_admission_details)} ${getString(R.string.adm_5_name)}", Toast.LENGTH_SHORT).show()
-        }
-
-        // + Nuevo ingreso button click
-        binding.btnNewAdmission.setOnClickListener {
-            Toast.makeText(this, R.string.msg_new_admission, Toast.LENGTH_SHORT).show()
-        }
-
-        // Bottom Navigation (Recepción)
+        // Bottom Navigation
         Navigator.setupBottomNav(
             activity = this,
             currentTab = null,

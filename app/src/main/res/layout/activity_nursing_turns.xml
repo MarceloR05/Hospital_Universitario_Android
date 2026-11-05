@@ -117,13 +117,33 @@
                     android:textColor="#737B89"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:text="@string/nursing_search_turns_hint"
-                    android:textColor="#737B89"
+                    android:background="@null"
+                    android:hint="@string/nursing_search_turns_hint"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="0dp"
+                    android:textColor="#202734"
+                    android:textColorHint="#737B89"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnClearSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/list_search_clear_desc"
+                    android:padding="8dp"
+                    android:text="✕"
+                    android:textColor="#737B89"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Section Title 1: Mi próxima guardia -->
@@ -220,310 +240,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardNextGuard" />
 
-            <!-- Shift Card 1: Lunes 19 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardShift1"
+            <!-- Lista (RecyclerView). Reemplaza las tarjetas estáticas. -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvWeekTitle">
+                app:layout_constraintTop_toBottomOf="@id/tvWeekTitle"
+                tools:listitem="@layout/item_shift" />
 
-                <TextView
-                    android:id="@+id/tvDay1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_1_name"
-                    android:textColor="#222937"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvTime1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_1_time"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDay1" />
-
-                <TextView
-                    android:id="@+id/tvShift1"
-                    android:layout_width="93dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="14dp"
-                    android:background="@drawable/bg_badge_inprogress"
-                    android:gravity="center"
-                    android:text="@string/shift_morning"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Shift Card 2: Martes 20 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardShift2"
+            <!-- Mensaje de lista vacía / sin resultados -->
+            <TextView
+                android:id="@+id/tvEmpty"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textColor="#737B89"
+                android:textSize="14sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardShift1">
+                app:layout_constraintTop_toBottomOf="@id/tvWeekTitle" />
 
-                <TextView
-                    android:id="@+id/tvDay2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_2_name"
-                    android:textColor="#222937"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvTime2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_2_time"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDay2" />
-
-                <TextView
-                    android:id="@+id/tvShift2"
-                    android:layout_width="93dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="14dp"
-                    android:background="@drawable/bg_badge_inprogress"
-                    android:gravity="center"
-                    android:text="@string/shift_morning"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Shift Card 3: Miércoles 21 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardShift3"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardShift2">
-
-                <TextView
-                    android:id="@+id/tvDay3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_3_name"
-                    android:textColor="#222937"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvTime3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_3_time"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDay3" />
-
-                <TextView
-                    android:id="@+id/tvShift3"
-                    android:layout_width="93dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="14dp"
-                    android:background="@drawable/bg_badge_inprogress"
-                    android:gravity="center"
-                    android:text="@string/shift_morning"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Shift Card 4: Jueves 22 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardShift4"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardShift3">
-
-                <TextView
-                    android:id="@+id/tvDay4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_4_name"
-                    android:textColor="#222937"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvTime4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_4_desc"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDay4" />
-
-                <TextView
-                    android:id="@+id/tvShift4"
-                    android:layout_width="93dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="14dp"
-                    android:background="@drawable/bg_badge_waiting"
-                    android:gravity="center"
-                    android:text="@string/shift_free"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Shift Card 5: Viernes 23 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardShift5"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardShift4">
-
-                <TextView
-                    android:id="@+id/tvDay5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_5_name"
-                    android:textColor="#222937"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvTime5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/day_5_time"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toStartOf="@id/tvShift5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvDay5" />
-
-                <TextView
-                    android:id="@+id/tvShift5"
-                    android:layout_width="93dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="14dp"
-                    android:background="@drawable/bg_badge_inprogress"
-                    android:gravity="center"
-                    android:text="@string/shift_afternoon"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

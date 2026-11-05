@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Listas genéricas: búsqueda, acciones, formulario -->
+    <string name="list_empty">No hay registros</string>
+    <string name="list_no_results">Sin resultados para «%1$s»</string>
+    <string name="list_search_clear_desc">Limpiar búsqueda</string>
+    <string name="list_close">Cerrar</string>
+    <string name="list_cancel">Cancelar</string>
+    <string name="list_action_status">Cambiar estado</string>
+    <string name="list_action_edit">Editar</string>
+    <string name="list_action_delete">Eliminar</string>
+    <string name="list_status_title">Cambiar estado</string>
+    <string name="list_status_updated">Estado actualizado</string>
+    <string name="list_form_save">Guardar</string>
+    <string name="list_form_new">Nuevo registro</string>
+    <string name="list_form_edit">Editar registro</string>
+    <string name="list_hint_name">Nombre</string>
+    <string name="list_hint_patient">Paciente</string>
+    <string name="list_time_label">Hora: %1$s</string>
+    <string name="list_error_title">Ingresa un texto válido (mínimo 3 caracteres)</string>
+    <string name="list_error_meta">Completa este campo (mínimo 3 caracteres)</string>
+    <string name="list_saved">Registro guardado</string>
+    <string name="list_updated">Registro actualizado</string>
+    <string name="list_deleted">Registro eliminado</string>
+    <string name="list_delete_title">Eliminar registro</string>
+    <string name="list_delete_message">¿Eliminar «%1$s»? Esta acción no se puede deshacer.</string>
+    <string name="list_confirm_title">Confirmar</string>
+    <string name="list_confirm_save">Confirmar y guardar</string>
+    <string name="list_confirm_review">Revisar</string>
+    <string name="picker_title">Seleccionar paciente</string>
+    <string name="patient_card_name">%1$s · %2$s</string>
+    <string name="patient_card_meta">%1$d años</string>
+
+    <!-- Configuración por pantalla -->
+    <string name="cfg_apt_new">Nueva cita</string>
+    <string name="cfg_apt_edit">Editar cita</string>
+    <string name="cfg_apt_meta_hint">Especialidad y médico</string>
+    <string name="cfg_adm_new">Nuevo ingreso</string>
+    <string name="cfg_adm_edit">Editar ingreso</string>
+    <string name="cfg_adm_meta_hint">Área y habitación</string>
+    <string name="cfg_turn_new">Nuevo turno</string>
+    <string name="cfg_turn_edit">Editar turno</string>
+    <string name="cfg_turn_meta_hint">Especialidad y hora</string>
+    <string name="cfg_lab_new">Nueva orden de laboratorio</string>
+    <string name="cfg_lab_edit">Editar orden</string>
+    <string name="cfg_lab_meta_hint">Estudio y prioridad</string>
+    <string name="cfg_rx_new">Nueva receta</string>
+    <string name="cfg_rx_edit">Editar receta</string>
+    <string name="cfg_rx_meta_hint">Medicamento, dosis y vía</string>
+    <string name="cfg_rx_confirm">¿Verificaste las alergias y contraindicaciones del paciente antes de guardar esta receta?</string>
+    <string name="cfg_rx_allergy_title">Seguridad del paciente</string>
+    <string name="cfg_rx_allergy_notice">Verifica alergias, interacciones y contraindicaciones del paciente antes de confirmar una receta.</string>
+    <string name="cfg_start_consult">Iniciar consulta</string>
+    <string name="cfg_register_preconsult">Registrar preconsulta</string>
+    <string name="btn_new_turn">+ Nuevo turno</string>
+    <string name="btn_new_lab_order">+ Nueva orden</string>
+
+    <!-- Consulta del doctor -->
+    <string name="consult_error_reason">Ingresa el motivo de la consulta</string>
+    <string name="consult_error_notes">Ingresa las notas médicas</string>
+    <string name="consult_confirm_title">Finalizar consulta</string>
+    <string name="consult_confirm_message">¿Finalizar la consulta de %1$s? Se marcará su cita como atendida.</string>
+    <string name="consult_confirm_yes">Finalizar</string>
+
+    <!-- Preconsulta de enfermería -->
+    <string name="vitals_hint_bp">Ej. 120/80</string>
+    <string name="vitals_hint_value">Valor</string>
+    <string name="vitals_error_invalid">Valor no válido para %1$s</string>
+    <string name="vitals_format_bp">%1$s mmHg</string>
+    <string name="vitals_format_hr">%1$s lpm</string>
+    <string name="vitals_format_temp">%1$s °C</string>
+    <string name="vitals_format_spo2">%1$s%%</string>
+    <string name="vitals_format_rr">%1$s rpm</string>
+    <string name="vitals_format_weight">%1$s kg</string>
+    <string name="vitals_save_title">Guardar preconsulta</string>
+    <string name="vitals_save_message">¿Guardar los signos vitales de %1$s?</string>
+    <string name="vitals_save_yes">Guardar</string>
+
+    <!-- Estados -->
+    <string name="st_confirmada">Confirmada</string>
+    <string name="st_en_espera">En espera</string>
+    <string name="st_en_curso">En curso</string>
+    <string name="st_pendiente">Pendiente</string>
+    <string name="st_ingresado">Ingresado</string>
+    <string name="st_observacion">Observación</string>
+    <string name="st_en_triage">En triage</string>
+    <string name="st_ingresada">Ingresada</string>
+    <string name="st_llamado">Llamado</string>
+    <string name="st_en_proceso">En proceso</string>
+    <string name="st_completado">Completado</string>
+    <string name="st_activa">Activa</string>
+    <string name="st_en_seguimiento">En seguimiento</string>
+    <string name="st_estable">Estable</string>
+    <string name="st_completada">Completada</string>
+    <string name="st_manana">Mañana</string>
+    <string name="st_tarde">Tarde</string>
+    <string name="st_libre">Libre</string>
+    <string name="st_cancelada">Cancelada</string>
+    <string name="st_atendida">Atendida</string>
+    <string name="st_atendido">Atendido</string>
+    <string name="st_en_atencion">En atención</string>
+    <string name="st_alta">Alta</string>
+    <string name="st_suspendida">Suspendida</string>
+</resources>

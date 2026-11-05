@@ -1,8 +1,8 @@
 package sv.edu.catolica.hospital_universitario
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import sv.edu.catolica.hospital_universitario.databinding.ActivityNursingTurnsBinding
 
 class NursingTurnsActivity : AppCompatActivity() {
@@ -14,42 +14,33 @@ class NursingTurnsActivity : AppCompatActivity() {
         binding = ActivityNursingTurnsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupListeners()
-    }
+        // Lista, búsqueda, detalle y formularios (ver ListScreen / ListConfigs)
+        ListScreen(
+            activity = this,
+            repository = AppContainer.nursingTurnRepository,
+            config = ListConfigs.schedule(),
+            views = ListScreen.Views(
+                recycler = binding.rvList,
+                empty = binding.tvEmpty,
+                search = binding.etSearch,
+                clearSearch = binding.btnClearSearch,
+                searchCard = binding.cardSearch,
+                newButton = null,
+                root = binding.root,
+                snackbarAnchor = binding.bottomNavContainer
+            )
+        ).attach()
 
-    private fun setupListeners() {
-        // Search bar click
-        binding.cardSearch.setOnClickListener {
-            Toast.makeText(this, "Búsqueda de turnos laborales", Toast.LENGTH_SHORT).show()
-        }
-
-        // Next guard card click
+        // Próxima guardia: muestra el detalle
         binding.cardNextGuard.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_shift_details)} ${getString(R.string.nursing_next_guard_date)} - ${getString(R.string.nursing_next_guard_time)}", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(this)
+                .setTitle(binding.tvGuardDate.text)
+                .setMessage("${binding.tvGuardTime.text}\n${binding.tvGuardStatus.text}")
+                .setPositiveButton(R.string.list_close, null)
+                .show()
         }
 
-        // Shift cards clicks
-        binding.cardShift1.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_shift_details)} ${getString(R.string.day_1_name)} (${getString(R.string.day_1_time)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift2.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_shift_details)} ${getString(R.string.day_2_name)} (${getString(R.string.day_2_time)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift3.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_shift_details)} ${getString(R.string.day_3_name)} (${getString(R.string.day_3_time)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift4.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_shift_details)} ${getString(R.string.day_4_name)} (${getString(R.string.day_4_desc)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift5.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_shift_details)} ${getString(R.string.day_5_name)} (${getString(R.string.day_5_time)})", Toast.LENGTH_SHORT).show()
-        }
-
-        // Bottom Navigation (Enfermería)
+        // Bottom Navigation
         Navigator.setupBottomNav(
             activity = this,
             currentTab = null,

@@ -1,8 +1,8 @@
 package sv.edu.catolica.hospital_universitario
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import sv.edu.catolica.hospital_universitario.databinding.ActivityDoctorScheduleBinding
 
 class DoctorScheduleActivity : AppCompatActivity() {
@@ -14,43 +14,33 @@ class DoctorScheduleActivity : AppCompatActivity() {
         binding = ActivityDoctorScheduleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupListeners()
-    }
+        // Lista, búsqueda, detalle y formularios (ver ListScreen / ListConfigs)
+        ListScreen(
+            activity = this,
+            repository = AppContainer.doctorScheduleRepository,
+            config = ListConfigs.schedule(),
+            views = ListScreen.Views(
+                recycler = binding.rvList,
+                empty = binding.tvEmpty,
+                search = binding.etSearch,
+                clearSearch = binding.btnClearSearch,
+                searchCard = binding.cardSearch,
+                newButton = null,
+                root = binding.root,
+                snackbarAnchor = binding.bottomNavContainer
+            )
+        ).attach()
 
-    private fun setupListeners() {
-        // Search bar click
-        binding.cardSearch.setOnClickListener {
-            Toast.makeText(this, "Búsqueda en mi horario", Toast.LENGTH_SHORT).show()
-        }
-
-        // Next shift card click
+        // Próximo turno: muestra el detalle
         binding.cardNextShift.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_schedule_details)} ${getString(R.string.doctor_next_shift_date)} - ${getString(R.string.doctor_next_shift_time)}", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(this)
+                .setTitle(binding.tvShiftDate.text)
+                .setMessage("${binding.tvShiftTime.text}\n${binding.tvShiftStatus.text}")
+                .setPositiveButton(R.string.list_close, null)
+                .show()
         }
 
-        // Shift cards clicks
-        binding.cardShift1.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_schedule_details)} ${getString(R.string.doc_sch_1_day)} (${getString(R.string.doc_sch_1_time)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift2.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_schedule_details)} ${getString(R.string.doc_sch_2_day)} (${getString(R.string.doc_sch_2_time)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift3.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_schedule_details)} ${getString(R.string.doc_sch_3_day)} (${getString(R.string.doc_sch_3_time)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift4.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_schedule_details)} ${getString(R.string.doc_sch_4_day)} (${getString(R.string.doc_sch_4_desc)})", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardShift5.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_schedule_details)} ${getString(R.string.doc_sch_5_day)} (${getString(R.string.doc_sch_5_desc)})", Toast.LENGTH_SHORT).show()
-        }
-
-        // Bottom Navigation (Médico)
-        // Horario no es una pestaña de la barra: ninguna queda marcada.
+        // Bottom Navigation
         Navigator.setupBottomNav(
             activity = this,
             currentTab = null,

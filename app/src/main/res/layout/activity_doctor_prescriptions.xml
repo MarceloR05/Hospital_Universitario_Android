@@ -117,13 +117,33 @@
                     android:textColor="#737B89"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:text="@string/doctor_search_prescriptions_hint"
-                    android:textColor="#737B89"
+                    android:background="@null"
+                    android:hint="@string/doctor_search_prescriptions_hint"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="0dp"
+                    android:textColor="#202734"
+                    android:textColorHint="#737B89"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnClearSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/list_search_clear_desc"
+                    android:padding="8dp"
+                    android:text="✕"
+                    android:textColor="#737B89"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Section Title: Prescripciones recientes -->
@@ -157,329 +177,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvRxListTitle" />
 
-            <!-- Prescription Card 1: Carlos Mendoza -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardRx1"
+            <!-- Lista (RecyclerView). Reemplaza las tarjetas estáticas. -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
                 android:layout_width="0dp"
-                android:layout_height="83dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFilters">
+                app:layout_constraintTop_toBottomOf="@id/tvFilters"
+                tools:listitem="@layout/item_entry" />
 
-                <FrameLayout
-                    android:id="@+id/flIcon1"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="13dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvName1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_1_name"
-                    android:textColor="#222937"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_1_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon1"
-                    app:layout_constraintTop_toBottomOf="@id/tvName1" />
-
-                <TextView
-                    android:id="@+id/tvStatus1"
-                    android:layout_width="142dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_badge_confirmed"
-                    android:gravity="center"
-                    android:text="@string/status_active"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon1"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta1" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Prescription Card 2: María López -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardRx2"
+            <!-- Mensaje de lista vacía / sin resultados -->
+            <TextView
+                android:id="@+id/tvEmpty"
                 android:layout_width="0dp"
-                android:layout_height="83dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textColor="#737B89"
+                android:textSize="14sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardRx1">
+                app:layout_constraintTop_toBottomOf="@id/tvFilters" />
 
-                <FrameLayout
-                    android:id="@+id/flIcon2"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="13dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/listBarrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="rvList,tvEmpty" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvName2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_2_name"
-                    android:textColor="#222937"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_2_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon2"
-                    app:layout_constraintTop_toBottomOf="@id/tvName2" />
-
-                <TextView
-                    android:id="@+id/tvStatus2"
-                    android:layout_width="142dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_badge_confirmed"
-                    android:gravity="center"
-                    android:text="@string/status_active"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon2"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Prescription Card 3: Juan Pérez -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardRx3"
-                android:layout_width="0dp"
-                android:layout_height="83dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardRx2">
-
-                <FrameLayout
-                    android:id="@+id/flIcon3"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="13dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvName3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_3_name"
-                    android:textColor="#222937"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon3"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_3_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon3"
-                    app:layout_constraintTop_toBottomOf="@id/tvName3" />
-
-                <TextView
-                    android:id="@+id/tvStatus3"
-                    android:layout_width="142dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_badge_waiting"
-                    android:gravity="center"
-                    android:text="@string/status_pending"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon3"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta3" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Prescription Card 4: Lucía García -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardRx4"
-                android:layout_width="0dp"
-                android:layout_height="83dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardRx3">
-
-                <FrameLayout
-                    android:id="@+id/flIcon4"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="13dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvName4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_4_name"
-                    android:textColor="#222937"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon4"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/rx_4_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon4"
-                    app:layout_constraintTop_toBottomOf="@id/tvName4" />
-
-                <TextView
-                    android:id="@+id/tvStatus4"
-                    android:layout_width="142dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_badge_confirmed"
-                    android:gravity="center"
-                    android:text="@string/status_active"
-                    android:textColor="#222937"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon4"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta4" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Allergy Check Banner Card -->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -495,7 +227,7 @@
                 android:elevation="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardRx4">
+                app:layout_constraintTop_toBottomOf="@id/listBarrier">
 
                 <TextView
                     android:layout_width="0dp"
@@ -513,27 +245,30 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- New Prescription Button -->
-            <Button
-                android:id="@+id/btnNewPrescription"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_button_wine"
-                android:text="@string/doctor_prescriptions_new_button"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardAllergyBanner" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <!-- Botón FIJO (no se mueve con el scroll) -->
+    <Button
+        android:id="@+id/btnNewPrescription"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="162dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_button_wine"
+        android:elevation="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/doctor_prescriptions_new_button"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Bottom Navigation Bar Container (Doctor) -->
     <androidx.constraintlayout.widget.ConstraintLayout

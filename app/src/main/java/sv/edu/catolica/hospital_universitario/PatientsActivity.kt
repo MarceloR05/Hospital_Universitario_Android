@@ -3,13 +3,16 @@ package sv.edu.catolica.hospital_universitario
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -24,6 +27,11 @@ class PatientsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // El teclado no sube la barra inferior ni el botón, y no aparece solo al abrir la pantalla
+        window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+        )
         binding = ActivityPatientsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -55,7 +63,7 @@ class PatientsActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        binding.cardSearch.setOnClickListener { showSearchDialog() }
+        setupSearch()
         binding.btnNewPatient.setOnClickListener { showPatientForm(null) }
 
         // Bottom Navigation (Recepción)
@@ -72,30 +80,44 @@ class PatientsActivity : AppCompatActivity() {
 
     // ---------------------------------------------------------------- búsqueda
 
-    private fun showSearchDialog() {
-        val input = EditText(this).apply {
-            hint = getString(R.string.patients_search_hint)
-            inputType = InputType.TYPE_CLASS_TEXT
-            setText(currentQuery)
-            setSelection(text.length)
+    /** Búsqueda en la misma barra: filtra mientras se escribe. */
+    private fun setupSearch() {
+        // Tocar cualquier parte de la barra enfoca el campo y abre el teclado
+        binding.cardSearch.setOnClickListener { focusSearch() }
+
+        binding.etSearch.addTextChangedListener { text ->
+            currentQuery = text?.toString().orEmpty().trim()
+            binding.btnClearSearch.visibility =
+                if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
+            loadPatients()
         }
-        val container = FrameLayout(this).apply {
-            setPadding(dp(20), dp(8), dp(20), 0)
-            addView(input)
+
+        // Tecla "buscar" del teclado: cierra el teclado y deja el filtro aplicado
+        binding.etSearch.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                hideKeyboard(view)
+                view.clearFocus()
+                true
+            } else {
+                false
+            }
         }
-        MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.patients_search_title)
-            .setView(container)
-            .setPositiveButton(R.string.patients_search_apply) { _, _ ->
-                currentQuery = input.text.toString().trim()
-                loadPatients()
-            }
-            .setNeutralButton(R.string.patients_search_clear) { _, _ ->
-                currentQuery = ""
-                loadPatients()
-            }
-            .setNegativeButton(R.string.patients_search_cancel, null)
-            .show()
+
+        binding.btnClearSearch.setOnClickListener {
+            binding.etSearch.text.clear()
+            focusSearch()
+        }
+    }
+
+    private fun focusSearch() {
+        binding.etSearch.requestFocus()
+        getSystemService(InputMethodManager::class.java)
+            ?.showSoftInput(binding.etSearch, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun hideKeyboard(view: View) {
+        getSystemService(InputMethodManager::class.java)
+            ?.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     // ----------------------------------------------------------------- detalle

@@ -117,13 +117,33 @@
                     android:textColor="#737B89"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
-                    android:text="@string/search_admissions_hint"
-                    android:textColor="#737B89"
+                    android:background="@null"
+                    android:hint="@string/search_admissions_hint"
+                    android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="0dp"
+                    android:textColor="#202734"
+                    android:textColorHint="#737B89"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnClearSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/list_search_clear_desc"
+                    android:padding="8dp"
+                    android:text="✕"
+                    android:textColor="#737B89"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Section Title: Ingresos recientes -->
@@ -157,430 +177,59 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvRecentAdmissionsTitle" />
 
-            <!-- Admission Card 1: Carlos Mendoza -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardAdm1"
+            <!-- Lista (RecyclerView). Reemplaza las tarjetas estáticas. -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
                 android:layout_width="0dp"
-                android:layout_height="86dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFilters">
+                app:layout_constraintTop_toBottomOf="@id/tvFilters"
+                tools:listitem="@layout/item_entry" />
 
-                <FrameLayout
-                    android:id="@+id/flIcon1"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="14dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvAdmName1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_1_name"
-                    android:textColor="#202734"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_1_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon1"
-                    app:layout_constraintTop_toBottomOf="@id/tvAdmName1" />
-
-                <TextView
-                    android:id="@+id/tvStatus1"
-                    android:layout_width="121dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/bg_badge_confirmed"
-                    android:gravity="center"
-                    android:text="@string/status_admitted"
-                    android:textColor="#202734"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon1"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta1" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Admission Card 2: María López -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardAdm2"
+            <!-- Mensaje de lista vacía / sin resultados -->
+            <TextView
+                android:id="@+id/tvEmpty"
                 android:layout_width="0dp"
-                android:layout_height="86dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textColor="#737B89"
+                android:textSize="14sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardAdm1">
+                app:layout_constraintTop_toBottomOf="@id/tvFilters" />
 
-                <FrameLayout
-                    android:id="@+id/flIcon2"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="14dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvAdmName2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_2_name"
-                    android:textColor="#202734"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_2_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon2"
-                    app:layout_constraintTop_toBottomOf="@id/tvAdmName2" />
-
-                <TextView
-                    android:id="@+id/tvStatus2"
-                    android:layout_width="121dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/bg_badge_waiting"
-                    android:gravity="center"
-                    android:text="@string/status_observation"
-                    android:textColor="#202734"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon2"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Admission Card 3: Juan Pérez -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardAdm3"
-                android:layout_width="0dp"
-                android:layout_height="86dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardAdm2">
-
-                <FrameLayout
-                    android:id="@+id/flIcon3"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="14dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvAdmName3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_3_name"
-                    android:textColor="#202734"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon3"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_3_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon3"
-                    app:layout_constraintTop_toBottomOf="@id/tvAdmName3" />
-
-                <TextView
-                    android:id="@+id/tvStatus3"
-                    android:layout_width="121dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/bg_badge_triage"
-                    android:gravity="center"
-                    android:text="@string/status_triage"
-                    android:textColor="#202734"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon3"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta3" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Admission Card 4: Lucía García -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardAdm4"
-                android:layout_width="0dp"
-                android:layout_height="86dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardAdm3">
-
-                <FrameLayout
-                    android:id="@+id/flIcon4"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="14dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvAdmName4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_4_name"
-                    android:textColor="#202734"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon4"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_4_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon4"
-                    app:layout_constraintTop_toBottomOf="@id/tvAdmName4" />
-
-                <TextView
-                    android:id="@+id/tvStatus4"
-                    android:layout_width="121dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/bg_badge_confirmed"
-                    android:gravity="center"
-                    android:text="@string/status_admitted_female"
-                    android:textColor="#202734"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon4"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta4" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Admission Card 5: Roberto Díaz -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cardAdm5"
-                android:layout_width="0dp"
-                android:layout_height="86dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_dashboard_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardAdm4">
-
-                <FrameLayout
-                    android:id="@+id/flIcon5"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="14dp"
-                    android:background="@drawable/bg_nav_selected"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="✚"
-                        android:textColor="@color/wine_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvAdmName5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_5_name"
-                    android:textColor="#202734"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon5"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvMeta5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="14dp"
-                    android:text="@string/adm_5_meta"
-                    android:textColor="#737B89"
-                    android:textSize="11sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/flIcon5"
-                    app:layout_constraintTop_toBottomOf="@id/tvAdmName5" />
-
-                <TextView
-                    android:id="@+id/tvStatus5"
-                    android:layout_width="121dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/bg_badge_confirmed"
-                    android:gravity="center"
-                    android:text="@string/status_admitted"
-                    android:textColor="#202734"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/flIcon5"
-                    app:layout_constraintTop_toBottomOf="@id/tvMeta5" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- + Nuevo ingreso Button -->
-            <Button
-                android:id="@+id/btnNewAdmission"
-                android:layout_width="154dp"
-                android:layout_height="34dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="17dp"
-                android:background="@drawable/bg_button_wine"
-                android:text="@string/btn_new_admission"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardAdm5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <!-- Botón FIJO (no se mueve con el scroll) -->
+    <Button
+        android:id="@+id/btnNewAdmission"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="162dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_button_wine"
+        android:elevation="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/btn_new_admission"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Bottom Navigation Bar Container -->
     <androidx.constraintlayout.widget.ConstraintLayout

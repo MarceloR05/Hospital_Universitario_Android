@@ -1,7 +1,6 @@
 package sv.edu.catolica.hospital_universitario
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import sv.edu.catolica.hospital_universitario.databinding.ActivityDoctorLabBinding
 
@@ -14,38 +13,24 @@ class DoctorLabActivity : AppCompatActivity() {
         binding = ActivityDoctorLabBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupListeners()
-    }
+        // Lista, búsqueda, detalle y formularios (ver ListScreen / ListConfigs)
+        ListScreen(
+            activity = this,
+            repository = AppContainer.labRepository,
+            config = ListConfigs.lab(),
+            views = ListScreen.Views(
+                recycler = binding.rvList,
+                empty = binding.tvEmpty,
+                search = binding.etSearch,
+                clearSearch = binding.btnClearSearch,
+                searchCard = binding.cardSearch,
+                newButton = binding.btnNewLabOrder,
+                root = binding.root,
+                snackbarAnchor = binding.bottomNavContainer
+            )
+        ).attach()
 
-    private fun setupListeners() {
-        // Search bar click
-        binding.cardSearch.setOnClickListener {
-            Toast.makeText(this, "Búsqueda de órdenes de laboratorio", Toast.LENGTH_SHORT).show()
-        }
-
-        // Lab cards clicks
-        binding.cardLab1.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_lab_details)} ${getString(R.string.lab_1_name)} - ${getString(R.string.lab_1_meta)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardLab2.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_lab_details)} ${getString(R.string.lab_2_name)} - ${getString(R.string.lab_2_meta)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardLab3.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_lab_details)} ${getString(R.string.lab_3_name)} - ${getString(R.string.lab_3_meta)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardLab4.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_lab_details)} ${getString(R.string.lab_4_name)} - ${getString(R.string.lab_4_meta)}", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.cardLab5.setOnClickListener {
-            Toast.makeText(this, "${getString(R.string.msg_lab_details)} ${getString(R.string.lab_5_name)} - ${getString(R.string.lab_5_meta)}", Toast.LENGTH_SHORT).show()
-        }
-
-        // Bottom Navigation (Médico)
-        // Laboratorio no es una pestaña de la barra: ninguna queda marcada.
+        // Bottom Navigation
         Navigator.setupBottomNav(
             activity = this,
             currentTab = null,
